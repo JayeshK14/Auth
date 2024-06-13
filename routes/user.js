@@ -2,8 +2,13 @@ const {Router} = require("express");
 const mongoose = require("mongoose");
 
 const User = mongoose.model("users");
-
 const router = new Router();
+
+const {ensureAuth} = require("../middleware/auth")
+
+router.get("/dashboard", ensureAuth, (req, res) => {
+    res.render("dashboard");
+})
 
 router.get("/fetch", async (req, res) => {
 

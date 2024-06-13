@@ -1,15 +1,23 @@
 const express = require("express");
 const connectDB = require("./config/db.js");
+const cookieParser = require('cookie-parser');
 const mongoose = require("mongoose");
 const app = express();
 
 require("./models/User.js");
 
+app.use(cookieParser());
+
 app.use(express.json());
+
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
     res.send("Hello World");
 })
+
+
+app.use("/auth", require("./routes/auth.js"))
 
 app.use("/user", require("./routes/user.js"))
 
